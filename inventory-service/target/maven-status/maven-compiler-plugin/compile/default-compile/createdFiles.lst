@@ -1,0 +1,8 @@
+com/iamstevol/inventoryservice/model/Inventory.class
+com/iamstevol/inventoryservice/controller/InventoryController.class
+com/iamstevol/inventoryservice/service/InventoryService.class
+com/iamstevol/inventoryservice/service/impl/InventoryServiceImpl.class
+com/iamstevol/inventoryservice/dto/InventoryResponse$InventoryResponseBuilder.class
+com/iamstevol/inventoryservice/repository/InventoryRepository.class
+com/iamstevol/inventoryservice/dto/InventoryResponse.class
+com/iamstevol/inventoryservice/InventoryServiceApplication.class

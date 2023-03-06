@@ -1,0 +1,11 @@
+com/iamstevol/ecommerce/dto/ProductResponse$ProductResponseBuilder.class
+com/iamstevol/ecommerce/service/impl/ProductServiceImpl.class
+com/iamstevol/ecommerce/repository/ProductRepository.class
+com/iamstevol/ecommerce/model/Product.class
+com/iamstevol/ecommerce/controller/ProductController.class
+com/iamstevol/ecommerce/dto/ProductResponse.class
+com/iamstevol/ecommerce/dto/ProductRequest.class
+com/iamstevol/ecommerce/ECommerceApplication.class
+com/iamstevol/ecommerce/model/Product$ProductBuilder.class
+com/iamstevol/ecommerce/dto/ProductRequest$ProductRequestBuilder.class
+com/iamstevol/ecommerce/service/ProductService.class
