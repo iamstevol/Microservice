@@ -5,7 +5,7 @@ import com.iamstevol.orderservice.dto.OrderRequest;
 import com.iamstevol.orderservice.model.OrderLineItems;
 
 public interface OrderService {
-    void placeOrder(OrderRequest orderRequest);
+    String placeOrder(OrderRequest orderRequest);
 
     OrderLineItems mapToOrderLineItems(OrderLineItemsDto orderLineItemsDto);
 }
