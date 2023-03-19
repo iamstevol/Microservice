@@ -8,6 +8,7 @@ import com.iamstevol.orderservice.model.Order;
 import com.iamstevol.orderservice.model.OrderLineItems;
 import com.iamstevol.orderservice.repository.OrderRepository;
 import com.iamstevol.orderservice.service.OrderService;
+import io.micrometer.tracing.Tracer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientBuilder;
+    private final Tracer tracer;
 
     @Override
     public String placeOrder(OrderRequest orderRequest) {
