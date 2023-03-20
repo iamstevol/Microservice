@@ -4,6 +4,7 @@ package com.iamstevol.orderservice.service.impl;
 import com.iamstevol.orderservice.dto.InventoryResponse;
 import com.iamstevol.orderservice.dto.OrderLineItemsDto;
 import com.iamstevol.orderservice.dto.OrderRequest;
+import com.iamstevol.orderservice.event.OrderPlacedEvent;
 import com.iamstevol.orderservice.model.Order;
 import com.iamstevol.orderservice.model.OrderLineItems;
 import com.iamstevol.orderservice.repository.OrderRepository;
@@ -12,6 +13,7 @@ import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -30,6 +32,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientBuilder;
     private final Tracer tracer;
+    private final KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
 
     @Override
     public String placeOrder(OrderRequest orderRequest) {
@@ -49,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
                 .map(orderLineItem -> orderLineItem.getSkuCode())
                 .toList();
 
-        log.info("Calling the invetory service");
+        log.info("Calling the inventory service");
 
         //Creating my own span Id
         Span inventoryServiceLookup = tracer.nextSpan().name("InventoryServiceLookup");
@@ -72,6 +75,7 @@ public class OrderServiceImpl implements OrderService {
 
             if (allProductsIsInStock) {
                 orderRepository.save(order);
+                kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(order.getOrderNumber()));
                 return "Order Placed Successfully";
             } else {
                 throw new IllegalArgumentException("Product is not in stock, please try again later");
