@@ -58,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
         Span inventoryServiceLookup = tracer.nextSpan().name("InventoryServiceLookup");
 
         //Micrometer will assign the initially created span Id to this piece of code
-        //To add the manual span Id setup, was whhy this code was reformatted to this
+        //To add the manual span Id setup, was why this code was reformatted to this
         try(Tracer.SpanInScope spanInScope = tracer.withSpan(inventoryServiceLookup.start())){
             //Call inventory service and place order if stock is available
             //The uriBuilder will help with include skuCodes in the request parameters
